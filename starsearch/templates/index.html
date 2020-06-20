@@ -1,0 +1,108 @@
+
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load static %}
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Star Search</title>
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="container">
+	<div id="bd">
+        <div id="main">
+        	<h1 class="title">
+            	<div class="logo large">Star Search</div>
+            </h1>
+            <div class="nav ue-clear">
+            	<ul class="searchList">
+                    <li class="searchItem current" data-type="article">Articles</li>
+                    <li class="searchItem" data-type="question">Tab 1</li>
+                    <li class="searchItem" data-type="job">Tab 2</li>
+                </ul>
+            </div>
+            <div class="inputArea">
+            	<input type="text" class="searchInput" />
+                <input type="button" class="searchButton" onclick="add_search()" />
+                <ul class="dataList">
+                	<li>suggest placeholder 1</li>
+                </ul>
+            </div>
+
+            <div class="historyArea">
+            	<p class="history">
+                	<label>Trending Search: </label>
+                    {% for search_word in topn_search %}
+                        <a href="/search?q={{ search_word }}">{{ search_word }}</a>
+                    {% endfor %}
+
+                </p>
+                <p class="history mysearch">
+                	<label>My recent search: </label>
+                    {% for search_word in past_search %}
+                        <a href="/search?q={{ search_word }}">{{ search_word }}</a>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="foot">
+    	<div class="wrap">
+            <div class="copyright">Copyright</div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/global.js' %}"></script>
+<script type="text/javascript">
+    var suggest_url = "{% url "suggest" %}"
+    var search_url = "/search/"
+
+	$('.searchList').on('click', '.searchItem', function(){
+		$('.searchList .searchItem').removeClass('current');
+		$(this).addClass('current');
+	});
+
+    function removeByValue(arr, val) {
+      for(var i=0; i<arr.length; i++) {
+        if(arr[i] == val) {
+          arr.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    $(function(){
+        $('.searchInput').bind(' input propertychange ',function(){
+            var searchText = $(this).val();
+            var tmpHtml = ""
+            $.ajax({
+                cache: false,
+                type: 'get',
+                dataType:'json',
+                url:suggest_url+"?s="+searchText+"&s_type="+$(".searchItem.current").attr('data-type'),
+                async: true,
+                success: function(data) {
+                    for (var i=0;i<data.length;i++){
+                        tmpHtml += '<li><a href="'+search_url+'?q='+data[i]+'">'+data[i]+'</a></li>'
+                    }
+                    $(".dataList").html("")
+                    $(".dataList").append(tmpHtml);
+                    if (data.length == 0){
+                        $('.dataList').hide()
+                    }else {
+                        $('.dataList').show()
+                    }
+                }
+            });
+        } );
+    })
+
+    hideElement($('.dataList'), $('.searchInput'));
+
+</script>
+</html>

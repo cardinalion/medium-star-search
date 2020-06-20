@@ -1,0 +1,210 @@
+
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load static %}
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Star Search</title>
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/result.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="container">
+	<div id="hd" class="ue-clear">
+    	<a href="/"><div class="logo">Star Search</div></a>
+        <div class="inputArea">
+        	<input type="text" class="searchInput" value="{{ key_words }}"/>
+            <input type="button" class="searchButton" onclick="add_search()"/>
+        </div>
+    </div>
+    <div class="nav">
+    	<ul class="searchList">
+            <li class="searchItem current" data-type="article">Articles</li>
+            <li class="searchItem" data-type="question">Tab 1</li>
+            <li class="searchItem" data-type="job">Tab 2</li>
+        </ul>
+    </div>
+	<div id="bd" class="ue-clear">
+        <div id="main">
+        	<div class="sideBar">
+            	
+                <div class="subfield">Sources</div>
+                <ul class="subfieldContext">
+                	<li>
+                    	<span class="name">Medium</span>
+						<span class="unit">({{ medium_nums }})</span>
+                    </li>
+                    <li>
+                    	<span class="name">Source 1</span>
+						<span class="unit">(0)</span>
+                    </li>
+                    <li>
+                    	<span class="name">Source 2</span>
+						<span class="unit">(0)</span>
+                    </li>
+                    <li class="more">
+                    	<a href="javascript:;">
+                        	<span class="text">More</span>
+                        	<i class="moreIcon"></i>
+                        </a>
+                    </li>
+                </ul>
+
+
+                <div class="sideBarShowHide">
+                	<a href="javascript:;" class="icon"></a>
+                </div>
+            </div>
+            <div class="resultArea">
+            	<p class="resultTotal">
+                	<span class="info">About&nbsp;<span class="totalResult">{{ total_nums }} results</span>
+                        <span class="time"> ({{ last_seconds }} seconds), </span>
+                        <span class="totalPage">{{ page_nums }} page(s) in total</span>
+                    </span>
+                </p>
+                <div class="resultList">
+                    {% for hit in all_hits %}
+                        <div class="resultItem">
+                            <div class="itemHead">
+                                <a href="{{ hit.url }}"  target="_blank" class="title">
+                                    {% autoescape off %}{{ hit.title }}{% endautoescape %}
+                                </a>
+                            </div>
+                            <div class="itemBody">
+                                {% autoescape off %}{{ hit.content }}{% endautoescape %}
+                            </div>
+                            <div class="itemFoot">
+                                <span class="info">
+                                    <label>Source: </label>
+                                    <span class="value">Medium</span>
+                                </span>
+                                <span class="info">
+                                    <label>Published Date: </label>
+                                    <span class="value">{{ hit.published_date }}</span>
+                                </span>
+                                <span class="dependValue">
+                                    <span class="label">Score：</span>
+                                    <span class="value">{{hit.score}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="pagination ue-clear"></div>
+            </div>
+            <div class="historyArea">
+            	<div class="hotSearch">
+                	<h6>Trending Search</h6>
+                    <ul class="historyList">
+                        {% for search_word in topn_search %}
+                            <li><a href="/search?q={{ search_word }}">{{ search_word }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="mySearch">
+                	<h6>My recent search</h6>
+                    <ul class="historyList">
+                        {% for past_word in past_search %}
+                            <li><a href="/search?q={{ past_word }}">{{ past_word }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="foot">Copyright</div>
+</body>
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/global.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/pagination.js' %}"></script>
+<script type="text/javascript">
+    var search_url = "{% url 'search' %}"
+
+	$('.searchList').on('click', '.searchItem', function(){
+		$('.searchList .searchItem').removeClass('current');
+		$(this).addClass('current');	
+	});
+	
+	$.each($('.subfieldContext'), function(i, item){
+		$(this).find('li:gt(2)').hide().end().find('li:last').show();		
+	});
+
+	function removeByValue(arr, val) {
+      for(var i=0; i<arr.length; i++) {
+        if(arr[i] == val) {
+          arr.splice(i, 1);
+          break;
+        }
+      }
+    }
+	$('.subfieldContext .more').click(function(e){
+		var $more = $(this).parent('.subfieldContext').find('.more');
+		if($more.hasClass('show')){
+			
+			if($(this).hasClass('define')){
+				$(this).parent('.subfieldContext').find('.more').removeClass('show').find('.text').text('自定义');
+			}else{
+				$(this).parent('.subfieldContext').find('.more').removeClass('show').find('.text').text('More');
+			}
+			$(this).parent('.subfieldContext').find('li:gt(2)').hide().end().find('li:last').show();
+	    }else{
+			$(this).parent('.subfieldContext').find('.more').addClass('show').find('.text').text('Hide');
+			$(this).parent('.subfieldContext').find('li:gt(2)').show();	
+		}
+		
+	});
+	
+	$('.sideBarShowHide a').click(function(e) {
+		if($('#main').hasClass('sideBarHide')){
+			$('#main').removeClass('sideBarHide');
+			$('#container').removeClass('sideBarHide');
+		}else{
+			$('#main').addClass('sideBarHide');	
+			$('#container').addClass('sideBarHide');
+		}
+        
+    });
+	var key_words = "{{ key_words }}"
+	$(".pagination").pagination({{ total_nums }}, {
+		current_page :{{ page|add:'-1' }},
+		items_per_page :10,
+		display_msg :true,
+		callback :pageselectCallback
+	});
+	function pageselectCallback(current_page) {
+		window.location.href=search_url+'?q='+key_words+'&p='+ (parseInt(current_page)+1)
+	}
+
+	setHeight();
+	$(window).resize(function(){
+		setHeight();	
+	});
+	
+	function setHeight(){
+		if($('#container').outerHeight() < $(window).height()){
+			$('#container').height($(window).height()-33);
+		}	
+	}
+</script>
+<script type="text/javascript">
+    $('.searchList').on('click', '.searchItem', function(){
+        $('.searchList .searchItem').removeClass('current');
+        $(this).addClass('current');
+    });
+
+    $('.searchInput').on('focus', function(){
+        $('.dataList').show()
+    });
+
+    $('.dataList').on('click', 'li', function(){
+        var text = $(this).text();
+        $('.searchInput').val(text);
+        $('.dataList').hide()
+    });
+
+    hideElement($('.dataList'), $('.searchInput'));
+</script>
+</html>

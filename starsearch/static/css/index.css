@@ -1,0 +1,123 @@
+@charset "utf-8";
+#main {
+  width: 730px;
+  margin: 75px auto 0;
+}
+#main h1.title {
+  width: 600px;
+}
+#bd {
+  margin-bottom: 20px;
+}
+.logo.large {
+  margin: 0px auto 10px 80px;
+  width: 342px;
+  height: 144px;
+  background: url(../img/iconfinder_logo_128.png) left center no-repeat ;
+  line-height: 200px;
+  font-size: 35px;
+  font-family: cursive;
+  padding-left: 140px;
+}
+
+.nav {
+  margin-bottom: 10px;
+}
+.searchList {
+  float: left;
+  padding-left: 5px;
+}
+.searchList .searchItem {
+  float: left;
+  margin-right: 15px;
+  font-size: 14px;
+  padding: 0 0 2px 2px;
+  cursor: pointer;
+  height: 18px;
+}
+.searchList .searchItem.current {
+  color: #0080cc;
+  border-bottom: 2px solid #9cc813;
+  font-weight: bold;
+}
+
+.inputArea {
+  position: relative;
+  margin-bottom: 65px;
+}
+.inputArea .searchInput {
+  border: 1px solid #bfbfbf;
+  padding: 0 15px;
+  outline: none;
+  height: 40px;
+  width: 520px;
+  background: url(../img/inputbg.png);
+  font-size: 14px;
+}
+.inputArea .searchButton {
+  border: none;
+  position: absolute;
+  left: 550px;
+  width: 150px;
+  height: 48px;
+  top:-3px;
+  background: url(../img/iconfinder_48.png) center center no-repeat;
+  cursor: pointer;
+}
+.inputArea .advanced {
+  position: absolute;
+  font-size: 14px;
+  left: 674px;
+  top: 12px;
+  text-decoration: underline;
+}
+
+.inputArea .dataList {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 42px;
+  width: 550px;
+  padding: 5px 0;
+  background: #fff;
+  border: 1px solid #bfbfbf;
+  border-top: none;
+}
+.inputArea .dataList li {
+  padding: 2px 15px;
+  font-size: 14px;
+}
+.inputArea .dataList li:hover {
+  background: #f0f0f0;
+  color: #0080cc;
+  font-weight: bold;
+}
+
+.historyArea {
+  margin: 0 auto;
+  width: 485px;
+}
+.historyArea .history {
+  margin-bottom: 5px;
+}
+.historyArea .history label {
+  font-weight: bold;
+}
+.historyArea .history a {
+  margin-right: 12px;
+}
+
+.foot {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+.foot .wrap {
+  margin: 0 auto;
+}
+.foot .copyright {
+  position: relative;
+  top: -35px;
+  color: #ababab;
+  text-align: center;
+}

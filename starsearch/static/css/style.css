@@ -1,0 +1,228 @@
+@charset "utf-8";
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+code,
+del,
+dfn,
+em,
+img,
+q,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+i {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1.5;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+caption,
+th,
+td,
+b,
+strong {
+  text-align: left;
+  font-weight: normal;
+}
+table,
+td,
+th {
+  vertical-align: middle;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+}
+blockquote,
+q {
+  quotes: "" "";
+}
+a img {
+  border: none;
+}
+em,
+cite {
+  font-style: normal;
+}
+
+body {
+  background: #fff;
+  font: 12px/1.5 Arial, SansSerif;
+  color: #000;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  color: #111;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+dl,
+dt,
+dd,
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+.ue-clear:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.ue-clear {
+  display: block;
+}
+
+a {
+  color: #0080cc;
+}
+a:hover {
+  color: #267a01;
+  text-decoration: underline;
+}
+
+.logo {
+  width: 160px;
+  height: 47px;
+  padding: 0 5px;
+  background: url(../img/iconfinder_logo_48.png) no-repeat left center #fff;
+}
+
+.choose {
+  float: left;
+  margin-right: 15px;
+  white-space: nowrap;
+}
+.choose .text {
+  float: left;
+  padding-left: 20px;
+  white-space: nowrap;
+  vertical-align: text-bottom;
+}
+.choose input[type="radio"],
+.choose input[type="checkbox"] {
+  position: relative;
+  float: left;
+  margin-right: -16px;
+}
+
+.pagination {
+  font-size: 14px;
+}
+.pagination a {
+  text-decoration: none;
+  border: solid 1px;
+}
+.pagination .showing_stats {
+  float: left;
+  margin-left: 5px;
+  height: 25px;
+  color: #023054;
+}
+.pagination a,
+.pagination span {
+  display: block;
+  float: left;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 6px;
+  margin-right: 5px;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+.pagination .current {
+  cursor: default;
+  border: solid 1px;
+}
+
+.pagination a {
+  color: #032f54;
+  border-color: #8eb2d2;
+}
+.pagination a:hover {
+  color: #023054;
+  border-color: #8eb2d2;
+  background: #b8dffb;
+}
+.pagination .current {
+  color: #fff;
+  border-color: #5c9bc4;
+  background: #89b8d8;
+}
+.pagination .current.prev,
+.pagination .current.next {
+  color: #b9b9b9;
+  border-color: #d3d3d3;
+  background: #fff;
+}
+
+#foot {
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  background: #f9f9f9;
+  border-top: 1px solid #e0e0e0;
+  color: #ababab;
+}
